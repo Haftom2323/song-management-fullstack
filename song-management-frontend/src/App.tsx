@@ -12,25 +12,25 @@ const App: React.FC = () => {
     <Router>
       <Container>
         <Sidebar>
-          <LinkText to='/'>
+          <LinkText to='/statistics'>
             <Text fontSize={3} fontWeight="bold" color="white" mb={4}>
               Dashboard
             </Text>
           </LinkText>
           <SidebarButton bg="#36454F" bghover="#edc" colorhover="black" as={Link} to="/">
-            <Analytics size="20" style={{ marginRight: '8px' }} />
-            Statistics
-          </SidebarButton>
-          <SidebarButton bg="#36454F" bghover="#edc" colorhover="black" as={Link} to="/songs">
             <FileEarmarkMusic size="20" style={{ marginRight: '8px' }} />
             Songs
+          </SidebarButton>
+          <SidebarButton bg="#36454F" bghover="#edc" colorhover="black" as={Link} to="/statistics">
+            <Analytics size="20" style={{ marginRight: '8px' }} />
+            Statistics
           </SidebarButton>
         </Sidebar>
 
         <MainContent>
           <Routes>
-            <Route path="/" element={<Statistics />} />
-            <Route path="/songs" element={<SongList />} />
+            <Route path="/" element={<SongList />} />
+            <Route path="/statistics" element={<Statistics />} />
           </Routes>
         </MainContent>
       </Container>
