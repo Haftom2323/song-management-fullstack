@@ -1,0 +1,178 @@
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import SongForm from './SongForm';
+import { fetchSongsStart, deleteSongStart } from '../slices/songsSlice';
+import {
+  Container,
+  SongCard,
+  Button,
+  Text,
+  FlexBox,
+  Input,
+  ModalContainer,
+  Modal,
+  CloseButton,
+} from './StyledComponents';
+import { Song } from '../types/song';
+import { RootState } from '../store/store';
+
+const SongList: React.FC = () => {
+  // State for selected song, filter inputs, and modals
+  const [selectedSong, setSelectedSong] = useState<Song | null>(null);
+  const [filterGenre, setFilterGenre] = useState('');
+  const [filterArtist, setFilterArtist] = useState('');
+  const [filterAlbum, setFilterAlbum] = useState('');
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  // Redux dispatch and selector for fetching songs
+  const dispatch = useDispatch();
+  const { songs, loading, error } = useSelector((state: RootState) => state.songs);
+
+  // Fetch songs on component mount
+  useEffect(() => {
+    dispatch(fetchSongsStart());
+  }, [dispatch]);
+
+  // Handlers for modals and song actions
+  const handleEdit = (song: Song) => {
+    setSelectedSong(song);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDelete = (id: string) => {
+    setIsDeleteModalOpen(true);
+    setSelectedSong(songs.find((song) => song._id === id) || null);
+  };
+
+  const handleFormClose = () => {
+    setSelectedSong(null);
+    setIsAddModalOpen(false);
+    setIsEditModalOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setIsAddModalOpen(false);
+    setIsEditModalOpen(false);
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (selectedSong) {
+      dispatch(deleteSongStart(selectedSong._id));
+      setIsDeleteModalOpen(false);
+      setSelectedSong(null);
+    }
+  };
+
+  // Filter songs based on genre, artist, and album
+  const filteredSongs = songs.filter((song) => {
+    const genreMatch = !filterGenre || song.genre.toLowerCase() === filterGenre.toLowerCase();
+    const artistMatch = !filterArtist || song.artist.toLowerCase() === filterArtist.toLowerCase();
+    const albumMatch = !filterAlbum || song.album.toLowerCase() === filterAlbum.toLowerCase();
+
+    return genreMatch && artistMatch && albumMatch;
+  });
+
+  return (
+    <Container>
+      <Text fontSize={3} fontWeight="bold">
+        Song Management
+      </Text>
+
+      {/* Filter Inputs */}
+      <FlexBox gap="16px" mb={4}>
+        <Input
+          type="text"
+          placeholder="Filter by Genre"
+          value={filterGenre}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterGenre(e.target.value)}
+        />
+        <Input
+          type="text"
+          placeholder="Filter by Artist"
+          value={filterArtist}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterArtist(e.target.value)}
+        />
+        <Input
+          type="text"
+          placeholder="Filter by Album"
+          value={filterAlbum}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterAlbum(e.target.value)}
+        />
+      </FlexBox>
+
+      <FlexBox justifyContent="left">
+        <Button onClick={() => setIsAddModalOpen(true)}>Add New Song</Button>
+      </FlexBox>
+
+      {/* Loading and Error Messages */}
+      {loading && <Text>Loading...</Text>}
+      {error && <Text color="red">{error}</Text>}
+
+      {/* Songs List */}
+      <FlexBox flexWrap="wrap" gap="16px" justifyContent="space-between">
+        {filteredSongs.length > 0 ? (
+          filteredSongs.map((song) => (
+            <SongCard key={song._id}>
+              <Text fontSize={2} fontWeight="bold">{song.title}</Text>
+              <Text>Artist: {song.artist}</Text>
+              <Text>Album: {song.album}</Text>
+              <Text>Genre: {song.genre}</Text>
+
+              <FlexBox mt={4} gap="8px">
+                <Button onClick={() => handleEdit(song)}>Edit</Button>
+                <Button onClick={() => handleDelete(song._id)} bg="#CC1300" bghover="red">
+                  Delete
+                </Button>
+              </FlexBox>
+            </SongCard>
+          ))
+        ) : (
+          <Text>No songs available</Text>
+        )}
+      </FlexBox>
+
+      {/* Add Modal */}
+      {isAddModalOpen && (
+        <ModalContainer>
+          <Modal>
+            <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
+            <SongForm onSubmit={handleFormClose} />
+          </Modal>
+        </ModalContainer>
+      )}
+
+      {/* Edit Modal */}
+      {isEditModalOpen && (
+        <ModalContainer>
+          <Modal>
+            <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
+            <SongForm initialSong={selectedSong} onSubmit={handleFormClose} />
+          </Modal>
+        </ModalContainer>
+      )}
+
+      {/* Delete Modal */}
+      {isDeleteModalOpen && (
+        <ModalContainer>
+          <Modal>
+            <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
+            <p>Are you sure you want to delete this song?</p>
+            <FlexBox gap="8px" mt={4}>
+              <Button bg="#28a745" onClick={handleDeleteConfirm}>
+                Yes
+              </Button>
+              <Button bg="#dc3545" onClick={handleCloseModal}>
+                No
+              </Button>
+            </FlexBox>
+          </Modal>
+        </ModalContainer>
+      )}
+    </Container>
+  );
+};
+
+export default SongList;
