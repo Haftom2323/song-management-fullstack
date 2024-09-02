@@ -149,7 +149,7 @@ const SongList: React.FC = () => {
         <ModalContainer>
           <Modal>
             <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
-            <SongForm initialSong={selectedSong} onSubmit={handleFormClose} />
+            <SongForm initialSong={selectedSong} isEditMode onSubmit={handleFormClose} />
           </Modal>
         </ModalContainer>
       )}

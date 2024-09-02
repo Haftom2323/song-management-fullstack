@@ -10,7 +10,7 @@ interface SongFormProps {
   onSubmit: () => void;
 }
 
-const SongForm: React.FC<SongFormProps> = ({ initialSong = null, isEditMode = false, onSubmit }) => {
+const SongForm: React.FC<SongFormProps> = ({ initialSong = null, isEditMode, onSubmit }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(initialSong?.title || '');
   const [artist, setArtist] = useState(initialSong?.artist || '');
