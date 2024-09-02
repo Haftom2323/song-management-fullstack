@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Song } from '../types/song';
 
 const api = axios.create({
-  baseURL: 'https://song-management-backend-b8wh.onrender.com/api',
+  baseURL: 'https://song-management-backend-fggi.onrender.com/api',
 });
 
 export const fetchSongs = () => api.get<Song[]>('/songs');

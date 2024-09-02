@@ -1,46 +1,106 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Song Management Frontend Application
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+This project is a **frontend application** for managing songs. The application allows users to perform CRUD (Create, Read, Update, Delete) operations on songs and provides a way to filter songs by genre, artist, and album. Additionally, users can view song statistics, like, total songs, total albums and songs by genre. The application is built using **React**, **TypeScript**, **Redux Toolkit**, **Redux-Saga**, **Emotion**, and **Styled System** for styling.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **View Songs**: List all songs fetched from the backend API.
+- **Add New Songs**: Add new songs using a modal-based form.
+- **Edit Songs**: Edit existing songs in a modal.
+- **Delete Songs**: Delete songs with confirmation in a modal.
+- **Filter Songs**: Filter songs by genre, artist, and album.
+- **View Statistics**: View real-time statistics for songs.
+- **Responsive Design**: The application adapts well to different screen sizes.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Project Structure
 
-### `npm test`
+```
+src/
+│
+├── api/
+│   └── api.ts          # Axios requests to backend API
+│
+├── components/
+│   ├── SongForm.tsx    # Song form component for adding and editing songs
+│   ├── SongsList.tsx   # Component to display and manage the list of songs
+│   ├── Statistics.tsx  # Component to display song statistics
+│   └── StyledComponents.ts # Styled components using Emotion and Styled System
+│
+├── sagas/
+│   ├── songsSaga.ts    # Redux-Saga to handle songs-related side effects
+│   └── statisticsSaga.ts # Redux-Saga to handle statistics-related side effects
+│
+├── slices/
+│   ├── songsSlice.ts   # Redux slice for song-related actions and reducers
+│   └── statisticsSlice.ts # Redux slice for statistics-related actions and reducers
+│
+├── store/
+│   └── store.ts        # Redux store configuration with Saga middleware
+│
+├── types/
+│   └── song.ts         # TypeScript types for Song and Statistics
+│
+├── App.tsx             # Root component of the application
+└── index.tsx           # Entry point of the application
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Dependencies
 
-### `npm run build`
+- **React**: JavaScript library for building user interfaces
+- **TypeScript**: Type-safe JavaScript
+- **Redux Toolkit**: Predictable state container for JavaScript apps
+- **Redux-Saga**: Middleware for handling side effects in Redux applications
+- **Axios**: Promise-based HTTP client for making API requests
+- **Emotion & Styled System**: For styling React components with theme-based system support
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/your-repo/song-management-frontend.git
+    cd song-management-frontend
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-### `npm run eject`
+## Running the Application
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To run the application in development mode:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The application will start on `http://localhost:3000`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Make sure you have the **backend API** running on `http://localhost:5000` or any chosen port. The frontend is configured to communicate with the backend via the following endpoints:
+- `/api/songs` for fetching, creating, updating, and deleting songs
+- `/api/statistics` for fetching statistics
 
-## Learn More
+## Redux State Management
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Songs Slice**: Manages the state for fetching, creating, updating, and deleting songs.
+- **Statistics Slice**: Manages the state for fetching song statistics.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Sagas
+
+- **Songs Saga**: Handles asynchronous side effects for fetching, creating, updating, and deleting songs.
+- **Statistics Saga**: Handles asynchronous side effects for fetching statistics.
+
+## Styling
+
+The application uses **Emotion** for styling components, with **Styled System** for managing responsive design, theming, and spacing.
+
+## Contributions
+
+Feel free to contribute by creating pull requests or submitting issues.
+
+## License
+
+This project is licensed under the MIT License.
