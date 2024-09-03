@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SongForm from './SongForm';
 import { fetchSongsStart, deleteSongStart } from '../slices/songsSlice';
+import LoadingIndicator from './LoadingIndicator';
 import {
   Container,
   SongCard,
@@ -104,11 +105,11 @@ const SongList: React.FC = () => {
       </FlexBox>
 
       <FlexBox justifyContent="left">
-        <Button onClick={() => setIsAddModalOpen(true)}>Add New Song</Button>
+        <Button bg="#28a745" bghover="#218838" onClick={() => setIsAddModalOpen(true)}>Add New Song</Button>
       </FlexBox>
 
       {/* Loading and Error Messages */}
-      {loading && <Text>Loading...</Text>}
+      {loading && <LoadingIndicator />}
       {error && <Text color="red">{error}</Text>}
 
       {/* Songs List */}
@@ -122,7 +123,7 @@ const SongList: React.FC = () => {
               <Text>Genre: {song.genre}</Text>
 
               <FlexBox mt={4} gap="8px">
-                <Button onClick={() => handleEdit(song)}>Edit</Button>
+                <Button onClick={() => handleEdit(song)} bg="#28a745" bghover="#218838">Edit</Button>
                 <Button onClick={() => handleDelete(song._id)} bg="#CC1300" bghover="red">
                   Delete
                 </Button>
@@ -159,12 +160,15 @@ const SongList: React.FC = () => {
         <ModalContainer>
           <Modal>
             <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
-            <p>Are you sure you want to delete this song?</p>
-            <FlexBox gap="8px" mt={4}>
-              <Button bg="#28a745" onClick={handleDeleteConfirm}>
+            <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+              {/* Center text */}
+              <p>Are you sure you want to delete this song?</p>
+            </div>
+            <FlexBox gap="8px" mt={4} justifyContent="center">
+              <Button onClick={handleDeleteConfirm} bg="#28a745" bghover="#218838">
                 Yes
               </Button>
-              <Button bg="#dc3545" onClick={handleCloseModal}>
+              <Button onClick={handleCloseModal} bg="#dc3545" bghover="red">
                 No
               </Button>
             </FlexBox>

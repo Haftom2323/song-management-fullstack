@@ -17,9 +17,10 @@ export const Input = styled('input')(
     border: '1px solid #ccc',
   },
   {
-    '@media (max-width: 768px)': {
-      width: '100%',
+    '@media (max-width: 769px)': {
+      width: '100%',  
       padding: '6px',
+      marginBottom: '8px',
     }
   }
 );
@@ -31,8 +32,8 @@ export const Button = styled('button')(
   color,
   border,
   (props) => ({
-    padding: '10px 20px',
-    backgroundColor: props.bg || '#36454F', 
+    padding: '8px 16px',
+    backgroundColor: props.bg || '#36454F',
     color: '#fff',
     border: 'none',
     textDecoration: 'none',
@@ -44,14 +45,29 @@ export const Button = styled('button')(
     },
   }),
   {
-    '@media (max-width: 768px)': {
-      width: '100%',
-      padding: '8px',
+    '@media (max-width: 769px)': {
+      width: '20%',  
+      padding: '6px 12px',
     }
   }
 );
 
-export const Text = styled('p')(space, layout, typography, color);
+export const Text = styled('p')(
+  space,
+  layout,
+  typography,
+  color,
+  {
+    margin: '4px 0',
+    whiteSpace: 'nowrap',  
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    '@media (max-width: 769px)': {
+      whiteSpace: 'normal', 
+      overflow: 'visible',
+    }
+  }
+);
 
 export const Card = styled('div')(
   space,
@@ -67,11 +83,13 @@ export const Card = styled('div')(
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    transition: 'transform 0.3s ease',
   },
   {
-    '@media (max-width: 768px)': {
-      width: '100%',
+    '@media (max-width: 769px)': {
+      width: '100%',  // Full width on mobile
       margin: '8px 0',
+      padding: '12px',
     }
   }
 );
@@ -81,7 +99,7 @@ export const Container = styled(Box)({
   margin: '0 auto',
   padding: '16px',
   width: '100%',
-  '@media (max-width: 768px)': {
+  '@media (max-width: 769px)': {
     padding: '8px',
   }
 });
@@ -89,10 +107,12 @@ export const Container = styled(Box)({
 export const FlexBox = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
-  gap: '16px', 
-  '@media (max-width: 768px)': {
-    flexDirection: 'column',
-    gap: '8px',
+  marginBottom: '5px',
+  gap: '16px',
+  '@media (max-width: 769px)': {
+    flexDirection: 'row',  // Stack items vertically on mobile
+    gap: '6px',
+    justifyContent: 'space-around',
   }
 });
 
@@ -110,7 +130,12 @@ export const StatisticsCard = styled('div')(
     display: 'flex',
     flexDirection: props.flexDirection || 'column',
     justifyContent: 'center',
-  })
+  }),
+  {
+    '@media (max-width: 769px)': {
+      padding: '16px',
+    }
+  }
 );
 
 export const StatItem = styled('div')({
@@ -118,7 +143,7 @@ export const StatItem = styled('div')({
   marginRight: '40px',
   display: 'flex',
   justifyContent: 'space-between',
-  padding: '8px 12px',
+  padding: '6px 10px',
   borderRadius: '4px',
   backgroundColor: '#36454F',
   color: '#fff',
@@ -129,26 +154,51 @@ export const StatItem = styled('div')({
   },
   '&:hover': {
     transform: 'scale(1.05)',
+  },
+  '@media (max-width: 769px)': {
+    padding: '6px 10px',
   }
 });
 
-export const SongCard = styled(Card)({
-  marginTop: '18px',
-  backgroundColor: '#e2e2e2',
-  transition: 'transform 0.3s ease', 
-  '&:last-child': {
-    marginBottom: '0',
+export const SongCard = styled('div')(
+  space,
+  layout,
+  color,
+  flexbox,
+  border,
+  {
+    padding: '16px',
+    borderRadius: '8px',
+    backgroundColor: '#e2e2e2',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '250px',  
+    maxWidth: '300px',  
+    overflow: 'hidden',
+    transition: 'transform 0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.05)',
+    },
   },
-  '&:hover': {
-    transform: 'scale(1.07)', 
+  {
+    '@media (max-width: 769px)': {
+      width: '100%',  
+      height: 'auto',  
+      padding: '12px',
+    },
   }
-});
+);
 
 export const FormBox = styled(Box)({
   padding: '16px',
   backgroundColor: '#fafafa',
   borderRadius: '8px',
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  '@media (max-width: 769px)': {
+    padding: '12px',
+  }
 });
 
 export const SubmitButton = styled(Button)({
@@ -156,10 +206,13 @@ export const SubmitButton = styled(Button)({
   '&:hover': {
     backgroundColor: '#218838',
   },
+  '@media (max-width: 769px)': {
+    width: '100%',  // Full width on mobile
+  }
 });
 
 export const Sidebar = styled(Box)`
-  width: 100%;
+  width: 250px;
   background-color: #36454F;
   text-decoration: none;
   color: white;
@@ -168,25 +221,22 @@ export const Sidebar = styled(Box)`
   flex-direction: column;
   gap: 16px;
   position: fixed;
-  min-height: 100vh;
-  margin: 0; 
+  height: 100vh;
+  margin: 0;
+  left: 0;
+  top: 0;
 
-  @media (min-width: 768px) {
-    width: 250px;
-  }
-
-  @media (max-width: 768px) {
-    position: absolute;
+  @media (max-width: 769px) {
     width: 200px;
   }
 `;
 
 export const LinkText = styled(Link)`
   text-decoration: none;
-  color: inherit; 
+  color: inherit;
 `;
 
-export const SidebarButton = styled('button')(
+export const SidebarButton = styled(Button)(
   space,
   layout,
   typography,
@@ -196,36 +246,31 @@ export const SidebarButton = styled('button')(
     display: 'flex',
     alignItems: 'center',
     padding: '10px 20px',
-    backgroundColor: props.bg || '#008000', 
+    backgroundColor: props.bg || '#008000',
     color: '#fff',
-    border: 'none',
     textDecoration: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
     transition: 'background-color 0.3s, color 0.3s',
     '&:hover': {
       backgroundColor: props.bghover || '#006400',
-      color: props.colorhover || '#fff',
     },
   }),
   {
-    '@media (max-width: 768px)': {
-      width: '100%',
+    '@media (max-width: 769px)': {
+      padding: '8px 16px',
     }
   }
 );
 
 export const MainContent = styled(Box)`
-  margin-left: 100px;
+  margin-left: 250px;
   flex: 1;
   padding: 16px;
 
-  @media (min-width: 768px) {
-    margin-left: 250px;
-  }
-
-  @media (max-width: 768px) {
-    margin-left: 200px;
+  @media (max-width: 769px) {
+    margin-left: 0;  // No margin when sidebar is replaced by drawer
+    padding: 12px;
   }
 `;
 
@@ -247,18 +292,19 @@ export const Modal = styled.div`
   background: white;
   padding: 20px;
   width: 80%;
-  max-width: 600px;
+  max-width: 500px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
-  @media (max-width: 768px) {
-    width: 95%;
-    padding: 16px;
+  @media (max-width: 769px)': {
+    padding: '16px',
+    width: '90%',
   }
 `;
 
-export const CloseButton = styled.button`
+export const CloseButton = styled(Button)`
   position: absolute;
+  text-align: center;
   top: 10px;
   right: 10px;
   background: transparent;
@@ -268,5 +314,52 @@ export const CloseButton = styled.button`
   color: #333;
   &:hover {
     color: #000;
+  }
+`;
+
+export const Drawer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #36454F;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+export const DrawerContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+`;
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+`;
+
+export const Spinner = styled.div`
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #000;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 `;

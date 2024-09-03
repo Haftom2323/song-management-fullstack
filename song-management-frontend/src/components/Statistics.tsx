@@ -7,7 +7,10 @@ import { RootState } from '../store/store';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
+import LoadingIndicator from './LoadingIndicator';
+
 ChartJS.register(ArcElement, Tooltip, Legend);
+
 
 const Statistics: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,7 +20,7 @@ const Statistics: React.FC = () => {
     dispatch(fetchStatisticsStart());
   }, [dispatch]);
 
-  if (loading) return <Text>Loading statistics...</Text>;
+  if (loading) return <Text><LoadingIndicator /></Text>;
   if (error) return <Text>Error: {error}</Text>;
 
   // Prepare data for the genre chart

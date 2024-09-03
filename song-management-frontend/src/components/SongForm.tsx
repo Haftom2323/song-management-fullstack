@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createSongStart, updateSongStart } from '../slices/songsSlice';
-import { FormBox, Input, SubmitButton } from './StyledComponents';
+import { FormBox, Input, SubmitButton, FlexBox } from './StyledComponents';
 import { Song } from '../types/song';
 
 interface SongFormProps {
@@ -43,35 +43,41 @@ const SongForm: React.FC<SongFormProps> = ({ initialSong = null, isEditMode, onS
 
   return (
     <FormBox as="form" onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
-        required
-      />
-      <Input
-        type="text"
-        placeholder="Artist"
-        value={artist}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setArtist(e.target.value)}
-        required
-      />
-      <Input
-        type="text"
-        placeholder="Album"
-        value={album}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAlbum(e.target.value)}
-        required
-      />
-      <Input
-        type="text"
-        placeholder="Genre"
-        value={genre}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGenre(e.target.value)}
-        required
-      />
-      <SubmitButton type="submit">{isEditMode ? 'Update Song' : 'Add Song'}</SubmitButton>
+      <FlexBox gap="16px" mb="12px">
+        <Input
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+          required
+        />
+        <Input
+          type="text"
+          placeholder="Artist"
+          value={artist}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setArtist(e.target.value)}
+          required
+        />
+      </FlexBox>
+      <FlexBox gap="16px" mb="12px">
+        <Input
+          type="text"
+          placeholder="Album"
+          value={album}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAlbum(e.target.value)}
+          required
+        />
+        <Input
+          type="text"
+          placeholder="Genre"
+          value={genre}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGenre(e.target.value)}
+          required
+        />
+      </FlexBox>
+      <FlexBox justifyContent="center" mt="16px">
+        <SubmitButton type="submit">{isEditMode ? 'Update Song' : 'Add Song'}</SubmitButton>
+      </FlexBox>
     </FormBox>
   );
 };
