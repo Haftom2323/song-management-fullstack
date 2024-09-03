@@ -15,9 +15,14 @@ export const Input = styled('input')(
     marginBottom: '12px',
     borderRadius: '4px',
     border: '1px solid #ccc',
+  },
+  {
+    '@media (max-width: 768px)': {
+      width: '100%',
+      padding: '6px',
+    }
   }
 );
-
 
 export const Button = styled('button')(
   space,
@@ -37,7 +42,13 @@ export const Button = styled('button')(
       backgroundColor: props.bghover || '#000000',
       color: props.colorhover || '#fff'
     },
-  })
+  }),
+  {
+    '@media (max-width: 768px)': {
+      width: '100%',
+      padding: '8px',
+    }
+  }
 );
 
 export const Text = styled('p')(space, layout, typography, color);
@@ -56,19 +67,33 @@ export const Card = styled('div')(
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  {
+    '@media (max-width: 768px)': {
+      width: '100%',
+      margin: '8px 0',
+    }
   }
 );
 
-
 export const Container = styled(Box)({
   maxWidth: '1200px',
-  margin: '0',
+  margin: '0 auto',
+  padding: '16px',
+  width: '100%',
+  '@media (max-width: 768px)': {
+    padding: '8px',
+  }
 });
 
 export const FlexBox = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
   gap: '16px', 
+  '@media (max-width: 768px)': {
+    flexDirection: 'column',
+    gap: '8px',
+  }
 });
 
 export const StatisticsCard = styled('div')(
@@ -85,8 +110,6 @@ export const StatisticsCard = styled('div')(
     display: 'flex',
     flexDirection: props.flexDirection || 'column',
     justifyContent: 'center',
-    
-    
   })
 );
 
@@ -108,7 +131,6 @@ export const StatItem = styled('div')({
     transform: 'scale(1.05)',
   }
 });
-
 
 export const SongCard = styled(Card)({
   marginTop: '18px',
@@ -140,7 +162,7 @@ export const Sidebar = styled(Box)`
   width: 100%;
   background-color: #36454F;
   text-decoration: none;
-  color: white
+  color: white;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -152,11 +174,17 @@ export const Sidebar = styled(Box)`
   @media (min-width: 768px) {
     width: 250px;
   }
+
+  @media (max-width: 768px) {
+    position: absolute;
+    width: 200px;
+  }
 `;
 
 export const LinkText = styled(Link)`
   text-decoration: none;
-  color: inherit`; 
+  color: inherit; 
+`;
 
 export const SidebarButton = styled('button')(
   space,
@@ -179,7 +207,12 @@ export const SidebarButton = styled('button')(
       backgroundColor: props.bghover || '#006400',
       color: props.colorhover || '#fff',
     },
-  })
+  }),
+  {
+    '@media (max-width: 768px)': {
+      width: '100%',
+    }
+  }
 );
 
 export const MainContent = styled(Box)`
@@ -190,7 +223,12 @@ export const MainContent = styled(Box)`
   @media (min-width: 768px) {
     margin-left: 250px;
   }
+
+  @media (max-width: 768px) {
+    margin-left: 200px;
+  }
 `;
+
 export const ModalContainer = styled.div`
   position: fixed;
   top: 0;
@@ -212,6 +250,11 @@ export const Modal = styled.div`
   max-width: 600px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    width: 95%;
+    padding: 16px;
+  }
 `;
 
 export const CloseButton = styled.button`
