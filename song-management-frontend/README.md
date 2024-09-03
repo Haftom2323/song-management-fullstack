@@ -28,6 +28,7 @@ src/
 │   ├── SongsList.tsx   # Component to display and manage the list of songs
 │   ├── Statistics.tsx  # Component to display song statistics
 │   └── StyledComponents.ts # Styled components using Emotion and Styled System
+│   ├──LoadingIndicator.tsx #A loading indicator that is displayed until songs or the statistics getfetched
 │
 ├── sagas/
 │   ├── songsSaga.ts    # Redux-Saga to handle songs-related side effects
