@@ -49,7 +49,6 @@ export const Button = styled('button')(
   (props) => ({
     '@media (max-width: 769px)': {
       width: props.width || '100%',  
-      padding: '6px 12px',
     }
   }
 ));
@@ -217,7 +216,7 @@ export const SubmitButton = styled(Button)({
     backgroundColor: '#218838',
   },
   '@media (max-width: 769px)': {
-    width: '20%',  
+    width: '30%',  
   }
 });
 
@@ -305,26 +304,21 @@ export const Modal = styled.div`
   max-width: 500px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-
-  @media (max-width: 769px)': {
-    padding: '16px',
-    width: '80%',
-  }
 `;
 
 export const CloseButton = styled(Button)`
-  position: absolute;
-  text-align: center;
   top: 10px;
   right: 10px;
   background: transparent;
   border: none;
   font-size: 24px;
   cursor: pointer;
+  display: flex;
   color: #333;
   &:hover {
     color: #000;
-  }
+  },
+ 
 `;
 
 export const Drawer = styled.div`
@@ -351,7 +345,7 @@ export const DrawerContent = styled.div`
 `;
 
 export const CloseButton1 = styled.button`
-  position: absolute;
+  position: relative;
   top: 10px;
   right: 10px;
   background: transparent;

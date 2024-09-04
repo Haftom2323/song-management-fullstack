@@ -104,7 +104,7 @@ const SongList: React.FC = () => {
       </FlexBox>
 
       <FlexBox justifyContent="left">
-        <Button onClick={() => setIsAddModalOpen(true)} bg="#28a745" bghover="#218838" width="20%" marginBottom="10px">Add New Song</Button>
+        <Button onClick={() => setIsAddModalOpen(true)} bg="#28a745" bghover="#218838" width= {isMobile? "30%" : "20%"} marginBottom="10px">Add New Song</Button>
       </FlexBox>
 
       {loading && <LoadingIndicator />}
