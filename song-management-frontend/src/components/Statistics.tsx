@@ -35,19 +35,18 @@ const Statistics: React.FC = () => {
     ]
   };
 
-  // Chart Options without `datalabels` plugin
   const chartOptions = {
     responsive: true,
     plugins: {
       legend: {
         display: true,
-        position: 'right' as const // Ensure valid legend position
+        position: 'right' as const
       },
       tooltip: {
         enabled: true
       }
     },
-    maintainAspectRatio: false // Ensures chart can be resized
+    maintainAspectRatio: false
   };
 
   return (

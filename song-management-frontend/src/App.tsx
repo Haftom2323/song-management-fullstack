@@ -19,7 +19,7 @@ const App: React.FC = () => {
       <Container>
         {isMobile ? (
           <>
-            <SidebarButton onClick={toggleDrawer} bg="#36454F" bghover="#edc" colorhover="black">
+            <SidebarButton onClick={toggleDrawer} bg="#36454F" bghover="#edc" colorhover="black" padding="5px 5px">
               ☰
             </SidebarButton>
             {drawerOpen && (

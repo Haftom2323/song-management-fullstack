@@ -87,7 +87,7 @@ export const Card = styled('div')(
   },
   {
     '@media (max-width: 769px)': {
-      width: '100%',  // Full width on mobile
+      width: '100%',  
       margin: '8px 0',
       padding: '12px',
     }
@@ -110,8 +110,8 @@ export const FlexBox = styled(Box)({
   marginBottom: '5px',
   gap: '16px',
   '@media (max-width: 769px)': {
-    flexDirection: 'row',  // Stack items vertically on mobile
-    gap: '6px',
+    flexDirection: 'row',  
+    gap: '10px',
     justifyContent: 'space-around',
   }
 });
@@ -157,6 +157,7 @@ export const StatItem = styled('div')({
   },
   '@media (max-width: 769px)': {
     padding: '6px 10px',
+    maxWidth: '25%'
   }
 });
 
@@ -167,7 +168,7 @@ export const SongCard = styled('div')(
   flexbox,
   border,
   {
-    padding: '16px',
+    padding: '16px 10px',
     borderRadius: '8px',
     backgroundColor: '#e2e2e2',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
@@ -175,8 +176,9 @@ export const SongCard = styled('div')(
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '250px',  
-    maxWidth: '300px',  
+    width: '250px',  
     overflow: 'hidden',
+    marginBottom: '15px',
     transition: 'transform 0.3s ease',
     '&:hover': {
       transform: 'scale(1.05)',
@@ -187,6 +189,7 @@ export const SongCard = styled('div')(
       width: '100%',  
       height: 'auto',  
       padding: '12px',
+      marginBottom: '15px',
     },
   }
 );
@@ -207,7 +210,7 @@ export const SubmitButton = styled(Button)({
     backgroundColor: '#218838',
   },
   '@media (max-width: 769px)': {
-    width: '100%',  // Full width on mobile
+    width: '100%',  
   }
 });
 
@@ -245,7 +248,7 @@ export const SidebarButton = styled(Button)(
   (props) => ({
     display: 'flex',
     alignItems: 'center',
-    padding: '10px 20px',
+    padding: props.padding || '10px 20px',
     backgroundColor: props.bg || '#008000',
     color: '#fff',
     textDecoration: 'none',

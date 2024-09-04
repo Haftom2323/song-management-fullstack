@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SongForm from './SongForm';
 import { fetchSongsStart, deleteSongStart } from '../slices/songsSlice';
 import LoadingIndicator from './LoadingIndicator';
+import {MusicNote} from '@emotion-icons/bootstrap/MusicNote'
 import {
   Container,
   SongCard,
@@ -18,7 +19,6 @@ import { Song } from '../types/song';
 import { RootState } from '../store/store';
 
 const SongList: React.FC = () => {
-  // State for selected song, filter inputs, and modals
   const [selectedSong, setSelectedSong] = useState<Song | null>(null);
   const [filterGenre, setFilterGenre] = useState('');
   const [filterArtist, setFilterArtist] = useState('');
@@ -27,16 +27,14 @@ const SongList: React.FC = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  // Redux dispatch and selector for fetching songs
   const dispatch = useDispatch();
   const { songs, loading, error } = useSelector((state: RootState) => state.songs);
 
-  // Fetch songs on component mount
+
   useEffect(() => {
     dispatch(fetchSongsStart());
   }, [dispatch]);
 
-  // Handlers for modals and song actions
   const handleEdit = (song: Song) => {
     setSelectedSong(song);
     setIsEditModalOpen(true);
@@ -108,7 +106,6 @@ const SongList: React.FC = () => {
         <Button bg="#28a745" bghover="#218838" onClick={() => setIsAddModalOpen(true)}>Add New Song</Button>
       </FlexBox>
 
-      {/* Loading and Error Messages */}
       {loading && <LoadingIndicator />}
       {error && <Text color="red">{error}</Text>}
 
@@ -116,7 +113,8 @@ const SongList: React.FC = () => {
       <FlexBox flexWrap="wrap" gap="16px" justifyContent="space-between">
         {filteredSongs.length > 0 ? (
           filteredSongs.map((song) => (
-            <SongCard key={song._id}>
+            <SongCard key={song._id} alignItems="center">
+              <MusicNote size="20" />
               <Text fontSize={2} fontWeight="bold">{song.title}</Text>
               <Text>Artist: {song.artist}</Text>
               <Text>Album: {song.album}</Text>
@@ -161,7 +159,6 @@ const SongList: React.FC = () => {
           <Modal>
             <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
             <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-              {/* Center text */}
               <p>Are you sure you want to delete this song?</p>
             </div>
             <FlexBox gap="8px" mt={4} justifyContent="center">
