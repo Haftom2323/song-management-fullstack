@@ -44,13 +44,13 @@ export const Button = styled('button')(
       color: props.colorhover || '#fff'
     },
   }),
-  {
+  (props) => ({
     '@media (max-width: 769px)': {
-      width: '20%',  
+      width: props.width || '100%',  
       padding: '6px 12px',
     }
   }
-);
+));
 
 export const Text = styled('p')(
   space,
@@ -210,7 +210,7 @@ export const SubmitButton = styled(Button)({
     backgroundColor: '#218838',
   },
   '@media (max-width: 769px)': {
-    width: '100%',  
+    width: '20%',  
   }
 });
 

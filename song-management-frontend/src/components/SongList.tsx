@@ -103,7 +103,7 @@ const SongList: React.FC = () => {
       </FlexBox>
 
       <FlexBox justifyContent="left">
-        <Button bg="#28a745" bghover="#218838" onClick={() => setIsAddModalOpen(true)}>Add New Song</Button>
+        <Button bg="#28a745" bghover="#218838" width="20%" onClick={() => setIsAddModalOpen(true)}>Add New Song</Button>
       </FlexBox>
 
       {loading && <LoadingIndicator />}
@@ -162,7 +162,7 @@ const SongList: React.FC = () => {
               <p>Are you sure you want to delete this song?</p>
             </div>
             <FlexBox gap="8px" mt={4} justifyContent="center">
-              <Button onClick={handleDeleteConfirm} bg="#28a745" bghover="#218838">
+              <Button withd="20%" onClick={handleDeleteConfirm} bg="#28a745" bghover="#218838">
                 Yes
               </Button>
               <Button onClick={handleCloseModal} bg="#dc3545" bghover="red">
