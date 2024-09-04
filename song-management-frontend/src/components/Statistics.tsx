@@ -20,7 +20,7 @@ const Statistics: React.FC = () => {
     dispatch(fetchStatisticsStart());
   }, [dispatch]);
 
-  if (loading) return <Text><LoadingIndicator /></Text>;
+  if (loading) return <div><LoadingIndicator /></div>;
   if (error) return <Text>Error: {error}</Text>;
 
   // Prepare data for the genre chart
@@ -55,20 +55,20 @@ const Statistics: React.FC = () => {
       <Text fontSize={4} fontWeight="bold" mb={2}>Total Statistics</Text>
 
       {/* Total Statistics Card */}
-      <StatisticsCard flexDirection="row">
-        <StatItem>
+      <StatisticsCard flexDirection="row" flexWrap="wrap">
+        <StatItem height="30px" maxWidth="calc(50% - 8px)">
           <Text fontSize={2} fontWeight="medium">Total Songs:</Text>
           <Text fontSize={2}>{statistics?.totalSongs}</Text>
-        </StatItem>
-        <StatItem>
+        </StatItem >
+        <StatItem height="30px" maxWidth="calc(50% - 8px)">
           <Text fontSize={2} fontWeight="medium">Total Artists:</Text>
           <Text fontSize={2}>{statistics?.totalArtists}</Text>
         </StatItem>
-        <StatItem>
+        <StatItem height="30px" maxWidth="calc(50% - 8px)">
           <Text fontSize={2} fontWeight="medium">Total Albums:</Text>
           <Text fontSize={2}>{statistics?.totalAlbums}</Text>
         </StatItem>
-        <StatItem>
+        <StatItem height="30px" maxWidth="calc(50% - 8px)">
           <Text fontSize={2} fontWeight="medium">Total Genres:</Text>
           <Text fontSize={2}>{statistics?.totalGenres}</Text>
         </StatItem>
@@ -87,10 +87,10 @@ const Statistics: React.FC = () => {
 
       {/* Songs by Artist Section */}
       <Box>
-        <Text fontSize={4} fontWeight="bold" mb={2}>Songs by Artist</Text>
-        <StatisticsCard flexDirection="row" flexWrap="wrap">
+        <Text fontSize={3} fontWeight="bold" mb={2}>Songs by Artist</Text>
+        <StatisticsCard flexDirection="row">
           {statistics?.songsByArtist.map((artistStat, index) => (
-            <StatItem key={artistStat._id} style={{ flex: '1 1 calc(25% - 16px)', margin: '8px' }}>
+            <StatItem key={artistStat._id} height='100%' width='50%'>
               <Text fontSize={2} fontWeight="medium">{artistStat._id}:</Text>
               <Text fontSize={2}>
                 {artistStat.songCount} songs, {artistStat.albumCount} albums

@@ -4,6 +4,7 @@ import SongForm from './SongForm';
 import { fetchSongsStart, deleteSongStart } from '../slices/songsSlice';
 import LoadingIndicator from './LoadingIndicator';
 import {MusicNote} from '@emotion-icons/bootstrap/MusicNote'
+import { useMediaQuery } from 'react-responsive';
 import {
   Container,
   SongCard,
@@ -18,6 +19,7 @@ import {
 import { Song } from '../types/song';
 import { RootState } from '../store/store';
 
+
 const SongList: React.FC = () => {
   const [selectedSong, setSelectedSong] = useState<Song | null>(null);
   const [filterGenre, setFilterGenre] = useState('');
@@ -26,6 +28,7 @@ const SongList: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const isMobile = useMediaQuery({ query: '(max-width: 769px)' });
 
   const dispatch = useDispatch();
   const { songs, loading, error } = useSelector((state: RootState) => state.songs);
@@ -76,9 +79,7 @@ const SongList: React.FC = () => {
 
   return (
     <Container>
-      <Text fontSize={3} fontWeight="bold">
-        Song Management
-      </Text>
+       {!isMobile  && <Text fontSize={3} fontWeight="bold">Song Management System</Text>}
 
       {/* Filter Inputs */}
       <FlexBox gap="16px" mb={4}>
@@ -103,7 +104,7 @@ const SongList: React.FC = () => {
       </FlexBox>
 
       <FlexBox justifyContent="left">
-        <Button bg="#28a745" bghover="#218838" width="20%" onClick={() => setIsAddModalOpen(true)}>Add New Song</Button>
+        <Button onClick={() => setIsAddModalOpen(true)} bg="#28a745" bghover="#218838" width="20%" marginBottom="10px">Add New Song</Button>
       </FlexBox>
 
       {loading && <LoadingIndicator />}
@@ -162,10 +163,10 @@ const SongList: React.FC = () => {
               <p>Are you sure you want to delete this song?</p>
             </div>
             <FlexBox gap="8px" mt={4} justifyContent="center">
-              <Button withd="20%" onClick={handleDeleteConfirm} bg="#28a745" bghover="#218838">
+              <Button onClick={handleDeleteConfirm} bg="#28a745" bghover="#218838" width="20%">
                 Yes
               </Button>
-              <Button onClick={handleCloseModal} bg="#dc3545" bghover="red">
+              <Button onClick={handleCloseModal} bg="#dc3545" bghover="red" width="20%">
                 No
               </Button>
             </FlexBox>

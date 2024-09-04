@@ -3,16 +3,17 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import SongList from './components/SongList';
 import Statistics from './components/Statistics';
-import { Container, Sidebar, MainContent, SidebarButton, Text, LinkText, Drawer, DrawerContent, Overlay } from './components/StyledComponents';
+import { Container, Sidebar, MainContent, SidebarButton, Text, LinkText, Drawer, DrawerContent, Overlay, CloseButton1 } from './components/StyledComponents';
 import { Analytics } from '@emotion-icons/material/Analytics';
 import { FileEarmarkMusic } from '@emotion-icons/bootstrap/FileEarmarkMusic';
 import { useMediaQuery } from 'react-responsive';
 
 const App: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 769px)' });
 
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
+  const closeDrawer = () => setDrawerOpen(false); // Explicitly close the drawer
 
   return (
     <Router>
@@ -20,18 +21,19 @@ const App: React.FC = () => {
         {isMobile ? (
           <>
             <SidebarButton onClick={toggleDrawer} bg="#36454F" bghover="#edc" colorhover="black" padding="5px 5px">
-              ☰
+              ☰ <Text fontSize={2} justifyContent="center">Song Management System</Text>
             </SidebarButton>
             {drawerOpen && (
               <>
-                <Overlay onClick={toggleDrawer} />
+                <Overlay onClick={closeDrawer} />  {/* Only for closing, not toggling */}
                 <Drawer>
+                  <CloseButton1 onClick={closeDrawer}>&times;</CloseButton1>  {/* Close button inside drawer */}
                   <DrawerContent>
-                    <LinkText to="/" onClick={toggleDrawer}>
+                    <LinkText to="/" onClick={closeDrawer}>
                       <FileEarmarkMusic size="20" style={{ marginRight: '8px' }} />
                       Songs
                     </LinkText>
-                    <LinkText to="/statistics" onClick={toggleDrawer}>
+                    <LinkText to="/statistics" onClick={closeDrawer}>
                       <Analytics size="20" style={{ marginRight: '8px' }} />
                       Statistics
                     </LinkText>

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { space, layout, typography, color, border, flexbox } from 'styled-system';
+import { space, layout, typography, color, border, flexbox, justifyContent } from 'styled-system';
 import { Link } from 'react-router-dom';
 
 export const Box = styled('div')(space, layout, color, flexbox, border);
@@ -31,13 +31,15 @@ export const Button = styled('button')(
   typography,
   color,
   border,
+  justifyContent,
   (props) => ({
-    padding: '8px 16px',
+    padding: '8px 12px',
     backgroundColor: props.bg || '#36454F',
     color: '#fff',
     border: 'none',
     textDecoration: 'none',
     borderRadius: '4px',
+    marginBottom: props.marginBottom,
     cursor: 'pointer',
     '&:hover': {
       backgroundColor: props.bghover || '#000000',
@@ -128,6 +130,7 @@ export const StatisticsCard = styled('div')(
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     display: 'flex',
+    flexWrap: 'wrap',
     flexDirection: props.flexDirection || 'column',
     justifyContent: 'center',
   }),
@@ -138,7 +141,7 @@ export const StatisticsCard = styled('div')(
   }
 );
 
-export const StatItem = styled('div')({
+export const StatItem = styled('div')(( props: { height?: string, width?: string, maxWidth?: string } ) => ({
   marginBottom: '12px',
   marginRight: '40px',
   display: 'flex',
@@ -147,8 +150,9 @@ export const StatItem = styled('div')({
   borderRadius: '4px',
   backgroundColor: '#36454F',
   color: '#fff',
+  height: props.height || 'auto',
   transition: 'transform 0.3s ease',
-  maxWidth: '100%', 
+  // maxWidth: 'calc(50% - 16px)', 
   '&:last-child': {
     marginBottom: '0',
   },
@@ -156,10 +160,13 @@ export const StatItem = styled('div')({
     transform: 'scale(1.05)',
   },
   '@media (max-width: 769px)': {
-    padding: '6px 10px',
-    maxWidth: '25%'
+    maxWidth: props.maxWidth || '100%',  
+    marginRight: '8px', 
+    marginBottom: '12px', 
+    height: props.height,
   }
-});
+}));
+
 
 export const SongCard = styled('div')(
   space,
@@ -178,7 +185,7 @@ export const SongCard = styled('div')(
     height: '250px',  
     width: '250px',  
     overflow: 'hidden',
-    marginBottom: '15px',
+    marginBottom: '10px',
     transition: 'transform 0.3s ease',
     '&:hover': {
       transform: 'scale(1.05)',
@@ -189,7 +196,7 @@ export const SongCard = styled('div')(
       width: '100%',  
       height: 'auto',  
       padding: '12px',
-      marginBottom: '15px',
+      marginBottom: '10px',
     },
   }
 );
@@ -301,7 +308,7 @@ export const Modal = styled.div`
 
   @media (max-width: 769px)': {
     padding: '16px',
-    width: '90%',
+    width: '80%',
   }
 `;
 
@@ -343,6 +350,20 @@ export const DrawerContent = styled.div`
   gap: 16px;
 `;
 
+export const CloseButton1 = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+  &:hover {
+    color: #ddd;
+  }
+`;
+
 export const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -352,6 +373,7 @@ export const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 `;
+
 
 export const Spinner = styled.div`
   border: 4px solid rgba(0, 0, 0, 0.1);
