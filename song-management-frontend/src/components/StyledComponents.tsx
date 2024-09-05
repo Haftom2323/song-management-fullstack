@@ -132,6 +132,7 @@ export const StatisticsCard = styled('div')(
     flexWrap: 'wrap',
     flexDirection: props.flexDirection || 'column',
     justifyContent: 'center',
+
   }),
   {
     '@media (max-width: 769px)': {
@@ -149,9 +150,9 @@ export const StatItem = styled('div')(( props: { height?: string, width?: string
   borderRadius: '4px',
   backgroundColor: '#36454F',
   color: '#fff',
-  height: props.height || 'auto',
+  height: props.height || '30px',
   transition: 'transform 0.3s ease',
-  maxWidth: 'calc(50% - 24px)', 
+  // maxWidth: 'calc(50% - 16px)', 
   '&:last-child': {
     marginBottom: '0',
   },
@@ -159,10 +160,10 @@ export const StatItem = styled('div')(( props: { height?: string, width?: string
     transform: 'scale(1.05)',
   },
   '@media (max-width: 769px)': {
-    maxWidth: props.maxWidth || '100%',  
+    maxWidth: props.maxWidth || 'calc(50% - 16px)',  
     marginRight: '8px', 
     marginBottom: '12px', 
-    height: props.height,
+    height: props.height || 'auto',
   }
 }));
 
@@ -318,7 +319,8 @@ export const CloseButton = styled(Button)`
   display: flex;
   color: #333;
   &:hover {
-    color: #000;
+    color: fff;
+    background-color: gray;
     right: 0;
   },
 `;

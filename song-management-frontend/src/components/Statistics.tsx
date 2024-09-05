@@ -90,7 +90,7 @@ const Statistics: React.FC = () => {
         <Text fontSize={3} fontWeight="bold" mb={2}>Songs by Artist</Text>
         <StatisticsCard flexDirection="row">
           {statistics?.songsByArtist.map((artistStat, index) => (
-            <StatItem key={artistStat._id} height='100%' width='50%'>
+            <StatItem key={artistStat._id} >
               <Text fontSize={2} fontWeight="medium">{artistStat._id}:</Text>
               <Text fontSize={2}>
                 {artistStat.songCount} songs, {artistStat.albumCount} albums
