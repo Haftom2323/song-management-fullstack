@@ -237,6 +237,7 @@ export const Sidebar = styled(Box)`
 
   @media (max-width: 769px) {
     width: 200px;
+    z-index: 1100;
   }
 `;
 
@@ -307,6 +308,7 @@ export const Modal = styled.div`
 `;
 
 export const CloseButton = styled(Button)`
+  position: absolute,
   top: 10px;
   right: 10px;
   background: transparent;
@@ -317,6 +319,7 @@ export const CloseButton = styled(Button)`
   color: #333;
   &:hover {
     color: #000;
+    right: 0;
   },
 `;
 
@@ -344,9 +347,9 @@ export const DrawerContent = styled.div`
 `;
 
 export const CloseButton1 = styled.button`
-  position: relative;
-  top: 10px;
+  position: absolute;
   right: 10px;
+  padding: 0;
   background: transparent;
   border: none;
   font-size: 24px;
@@ -364,7 +367,7 @@ export const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 1000;
 `;
 
 
