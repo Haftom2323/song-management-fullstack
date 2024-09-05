@@ -101,7 +101,7 @@ export const Container = styled(Box)({
   padding: '16px',
   width: '100%',
   '@media (max-width: 769px)': {
-    padding: '8px',
+    padding: '0',
   }
 });
 
@@ -151,7 +151,7 @@ export const StatItem = styled('div')(( props: { height?: string, width?: string
   color: '#fff',
   height: props.height || 'auto',
   transition: 'transform 0.3s ease',
-  // maxWidth: 'calc(50% - 16px)', 
+  maxWidth: 'calc(50% - 24px)', 
   '&:last-child': {
     marginBottom: '0',
   },
@@ -278,7 +278,7 @@ export const MainContent = styled(Box)`
   padding: 16px;
 
   @media (max-width: 769px) {
-    margin-left: 0;  // No margin when sidebar is replaced by drawer
+    margin-left: 0;  
     padding: 12px;
   }
 `;
@@ -318,7 +318,6 @@ export const CloseButton = styled(Button)`
   &:hover {
     color: #000;
   },
- 
 `;
 
 export const Drawer = styled.div`

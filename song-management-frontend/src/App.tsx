@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 769px)' });
 
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
-  const closeDrawer = () => setDrawerOpen(false); // Explicitly close the drawer
+  const closeDrawer = () => setDrawerOpen(false); 
 
   return (
     <Router>
@@ -25,9 +25,9 @@ const App: React.FC = () => {
             </SidebarButton>
             {drawerOpen && (
               <>
-                <Overlay onClick={closeDrawer} />  {/* Only for closing, not toggling */}
+                <Overlay onClick={closeDrawer} />  
                 <Drawer>
-                  <CloseButton1 onClick={closeDrawer}>&times;</CloseButton1>  {/* Close button inside drawer */}
+                  <CloseButton1 onClick={closeDrawer}>&times;</CloseButton1>  
                   <DrawerContent>
                     <LinkText to="/" onClick={closeDrawer}>
                       <FileEarmarkMusic size="20" style={{ marginRight: '8px' }} />
