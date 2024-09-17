@@ -1,14 +1,18 @@
 const songService = require('../services/songService');
 
 const getAllSongs = async (req, res) => {
+    const { page = 1, limit = 6 } = req.query; 
+    console.log(`page: ${page} and limit: ${limit}`);
+  
     try {
-        const songs = await songService.getAllSongs();
-        res.json(songs);
+      const songs = await songService.getAllSongs(parseInt(page), parseInt(limit));
+      res.json(songs);
     } catch (error) {
-        res.status(500).json({ error: 'Internal error, failed to retrieve songs' });
+      res.status(500).json({ error: 'Internal error, failed to retrieve songs' });
     }
-};
-
+  };
+  
+  
 const getSongById = async (req, res) => {
     try {
         const song = await songService.getSongById(req.params.id);

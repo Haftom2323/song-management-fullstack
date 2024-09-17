@@ -5,7 +5,13 @@ const api = axios.create({
   baseURL: 'https://song-management-backend-fggi.onrender.com/api',
 });
 
-export const fetchSongs = () => api.get<Song[]>('/songs');
+export const fetchSongs = (page: number, limit: number) => 
+  api.get<{
+    songs: Song[],
+    totalSongs: number,
+    currentPage: number,
+    totalPages: number
+  }>(`/songs?page=${page}&limit=${limit}`);
 export const fetchSongById = (id: string) => api.get<Song>(`/songs/${id}`);
 export const createSong = (songData: Song) => api.post('/songs', songData);
 export const updateSong = (id: string, songData: Song) => api.put(`/songs/${id}`, songData);

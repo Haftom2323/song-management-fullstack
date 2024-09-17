@@ -1,8 +1,20 @@
 const Song = require('../models/song');
 
-const getAllSongs = async () => {
-  return await Song.find();
+const getAllSongs = async (page, limit) => {
+  const skip = (page - 1) * limit; 
+
+  const songs = await Song.find().skip(skip).limit(limit);
+
+  const totalSongs = await Song.countDocuments();
+
+  return {
+    songs,
+    totalSongs,  
+    currentPage: page,  
+    totalPages: Math.ceil(totalSongs / limit),  
+  };
 };
+
 
 const getSongById = async (id) => {
   return await Song.findById(id);
@@ -30,22 +42,17 @@ const getStatistics = async () => {
     
     const distinctArtists = await Song.distinct('artist');
     const totalArtists = distinctArtists.length;
-    // console.log("total artists: ", totalArtists);
 
     const distinctAlbums = await Song.distinct('album');
     const totalAlbums = distinctAlbums.length;
-    // console.log("total albums: ", totalAlbums);
 
     const distinctGenres = await Song.distinct('genre');
     const totalGenres = distinctGenres.length;
-    // console.log("total genres: ", totalGenres);
 
-    // Fetching count of songs grouped by genre
     const songsByGenre = await Song.aggregate([
       { $group: { _id: '$genre', count: { $sum: 1 } } },
     ]);
 
-    // Fetching count of songs and albums grouped by artist
     const songsByArtist = await Song.aggregate([
       {
         $group: {
@@ -63,12 +70,10 @@ const getStatistics = async () => {
       },
     ]);
 
-    // Fetching count of songs grouped by album
     const songsByAlbum = await Song.aggregate([
       { $group: { _id: '$album', count: { $sum: 1 } } },
     ]);
 
-    // Returning all statistics
     return {
       totalSongs,
       totalArtists,

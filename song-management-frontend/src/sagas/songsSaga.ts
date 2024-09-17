@@ -13,14 +13,24 @@ import {
   deleteSongStart,
   deleteSongSuccess,
 } from '../slices/songsSlice';
-
 import { fetchStatisticsStart } from '../slices/statisticsSlice';
 import { Song } from '../types/song';
 
-function* fetchSongsSaga(): Generator<any, void, AxiosResponse<Song[]>> {
+interface SongsResponse {
+  songs: Song[];
+  totalSongs: number;
+  currentPage: number;
+  totalPages: number;
+}
+
+function* fetchSongsSaga(action: ReturnType<typeof fetchSongsStart>): Generator<any, void, AxiosResponse<SongsResponse>> {
   try {
-    const response = yield call(fetchSongs);
-    yield put(fetchSongsSuccess(response.data));
+    const { page, limit } = action.payload;
+    const response = yield call(fetchSongs, page, limit); 
+    // console.log("response: ", response.data);
+
+    const { songs, totalSongs, currentPage, totalPages } = response.data;
+    yield put(fetchSongsSuccess({ songs, totalSongs, currentPage, totalPages }));
   } catch (error) {
     yield put(fetchSongsFailure('Failed to fetch songs'));
   }
@@ -33,7 +43,7 @@ function* createSongSaga(action: ReturnType<typeof createSongStart>): Generator<
 
     yield put(fetchStatisticsStart());
   } catch (error) {
-    yield put(createSongFailure('Failed to create songs'));
+    yield put(createSongFailure('Failed to create song'));
   }
 }
 

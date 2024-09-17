@@ -3,12 +3,18 @@ import { Song } from '../types/song';
 
 interface SongState {
   songs: Song[];
+  totalSongs: number;
+  currentPage: number;
+  totalPages: number;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: SongState = {
   songs: [],
+  totalSongs: 0,
+  currentPage: 0,
+  totalPages: 0,
   loading: false,
   error: null,
 };
@@ -17,11 +23,21 @@ const songSlice = createSlice({
   name: 'songs',
   initialState,
   reducers: {
-    fetchSongsStart(state) {
+    fetchSongsStart(state, action: PayloadAction<{ page: number; limit: number }>) {
       state.loading = true;
     },
-    fetchSongsSuccess(state, action: PayloadAction<Song[]>) {
-      state.songs = action.payload;
+    fetchSongsSuccess(state, action: PayloadAction<{
+      songs: Song[];
+      totalSongs: number;
+      currentPage: number;
+      totalPages: number;
+    }>) {
+      const { songs, totalSongs, currentPage, totalPages } = action.payload;
+      state.songs = Array.isArray(songs) ? songs : [];
+      state.totalSongs = totalSongs;
+      state.currentPage = currentPage;
+      // console.log("current page in slice: ", currentPage)
+      state.totalPages = totalPages;
       state.loading = false;
     },
     fetchSongsFailure(state, action: PayloadAction<string>) {
@@ -30,7 +46,7 @@ const songSlice = createSlice({
     },
     createSongStart(state, action: PayloadAction<Song>) { },
     createSongSuccess(state, action: PayloadAction<Song>) {
-      state.songs.push(action.payload);
+      state.songs = [...state.songs, action.payload];
     },
     createSongFailure(state, action: PayloadAction<string>) {
       state.error = action.payload;

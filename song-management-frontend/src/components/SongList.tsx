@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SongForm from './SongForm';
 import { fetchSongsStart, deleteSongStart } from '../slices/songsSlice';
 import LoadingIndicator from './LoadingIndicator';
-import {MusicNote} from '@emotion-icons/bootstrap/MusicNote'
+import { MusicNote } from '@emotion-icons/bootstrap/MusicNote';
 import { useMediaQuery } from 'react-responsive';
 import {
   Container,
@@ -19,7 +19,6 @@ import {
 import { Song } from '../types/song';
 import { RootState } from '../store/store';
 
-
 const SongList: React.FC = () => {
   const [selectedSong, setSelectedSong] = useState<Song | null>(null);
   const [filterGenre, setFilterGenre] = useState('');
@@ -28,15 +27,17 @@ const SongList: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [songsPerPage] = useState(6);
   const isMobile = useMediaQuery({ query: '(max-width: 769px)' });
 
   const dispatch = useDispatch();
-  const { songs, loading, error } = useSelector((state: RootState) => state.songs);
+  const { songs, loading, error, totalPages } = useSelector((state: RootState) => state.songs);
 
-
+  // Fetch the songs when currentPage changes
   useEffect(() => {
-    dispatch(fetchSongsStart());
-  }, [dispatch]);
+    dispatch(fetchSongsStart({ page: currentPage, limit: songsPerPage }));
+  }, [dispatch, currentPage, songsPerPage]);
 
   const handleEdit = (song: Song) => {
     setSelectedSong(song);
@@ -70,16 +71,24 @@ const SongList: React.FC = () => {
 
   // Filter songs based on genre, artist, and album
   const filteredSongs = songs.filter((song) => {
-    const genreMatch = !filterGenre || song.genre.toLowerCase() === filterGenre.toLowerCase();
-    const artistMatch = !filterArtist || song.artist.toLowerCase() === filterArtist.toLowerCase();
-    const albumMatch = !filterAlbum || song.album.toLowerCase() === filterAlbum.toLowerCase();
+    const genreMatch = !filterGenre || song.genre.toLowerCase().includes(filterGenre.toLowerCase());
+    const artistMatch = !filterArtist || song.artist.toLowerCase().includes(filterArtist.toLowerCase());
+    const albumMatch = !filterAlbum || song.album.toLowerCase().includes(filterAlbum.toLowerCase());
 
     return genreMatch && artistMatch && albumMatch;
   });
 
+  const displaySongs = filteredSongs; 
+
+  const paginate = (pageNumber: number) => {
+    if (pageNumber > 0 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
   return (
     <Container>
-       {!isMobile  && <Text fontSize={3} fontWeight="bold">Song Management System</Text>}
+      {!isMobile && <Text fontSize={3} fontWeight="bold">Song Management System</Text>}
 
       {/* Filter Inputs */}
       <FlexBox gap="16px" mb={4}>
@@ -104,7 +113,9 @@ const SongList: React.FC = () => {
       </FlexBox>
 
       <FlexBox justifyContent="left">
-        <Button onClick={() => setIsAddModalOpen(true)} bg="#28a745" bghover="#218838" width= {isMobile? "30%" : "20%"} marginBottom="10px">Add New Song</Button>
+        <Button onClick={() => setIsAddModalOpen(true)} bg="#28a745" bghover="#218838" width={isMobile ? '30%' : '20%'} marginBottom="10px">
+          Add New Song
+        </Button>
       </FlexBox>
 
       {loading && <LoadingIndicator />}
@@ -112,8 +123,8 @@ const SongList: React.FC = () => {
 
       {/* Songs List */}
       <FlexBox flexWrap="wrap" gap="16px" justifyContent="space-between">
-        {filteredSongs.length > 0 ? (
-          filteredSongs.map((song) => (
+        {displaySongs.length > 0 ? (
+          displaySongs.map((song) => (
             <SongCard key={song._id} alignItems="center">
               <MusicNote size="20" />
               <Text fontSize={2} fontWeight="bold">{song.title}</Text>
@@ -132,6 +143,40 @@ const SongList: React.FC = () => {
         ) : (
           <Text>No songs available</Text>
         )}
+      </FlexBox>
+
+      {/* Pagination Controls */}
+      <FlexBox justifyContent="center" mt={4}>
+        <Button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          bg="#28a745"
+          bghover="#218838"
+          width="10%"
+        >
+          Previous
+        </Button>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <Button
+            key={index}
+            onClick={() => paginate(index + 1)}
+            bg={currentPage === index + 1 ? '#007bff' : '#28a745'}
+            bghover={currentPage === index + 1 ? '#0056b3' : '#218838'}
+            disabled={currentPage === index + 1} // Disable the current page button
+            width="10%"
+          >
+            {index + 1}
+          </Button>
+        ))}
+        <Button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          bg="#28a745"
+          bghover="#218838"
+          width="10%"
+        >
+          Next
+        </Button>
       </FlexBox>
 
       {/* Add Modal */}
