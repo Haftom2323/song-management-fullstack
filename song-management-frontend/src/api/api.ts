@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Song } from '../types/song';
 
 const api = axios.create({
-  baseURL: 'https://song-management-backend-fggi.onrender.com/api',
+  baseURL: 'https://song-management-backend-ozfg.onrender.com/api',
 });
 
 export const fetchSongs = (page: number, limit: number) => 
