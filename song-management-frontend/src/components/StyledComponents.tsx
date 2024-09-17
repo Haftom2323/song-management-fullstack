@@ -109,10 +109,10 @@ export const FlexBox = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
   marginBottom: '5px',
-  gap: '16px',
+  gap: '8px',
   '@media (max-width: 769px)': {
     flexDirection: 'row',  
-    gap: '10px',
+    gap: '6px',
     justifyContent: 'space-around',
   }
 });
@@ -182,7 +182,7 @@ export const SongCard = styled('div')(
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: '250px',  
+    height: '200px',  
     width: '250px',  
     overflow: 'hidden',
     marginBottom: '10px',

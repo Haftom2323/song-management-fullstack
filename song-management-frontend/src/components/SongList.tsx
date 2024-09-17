@@ -91,7 +91,7 @@ const SongList: React.FC = () => {
       {!isMobile && <Text fontSize={3} fontWeight="bold">Song Management System</Text>}
 
       {/* Filter Inputs */}
-      <FlexBox gap="16px" mb={4}>
+      <FlexBox mb={4}>
         <Input
           type="text"
           placeholder="Filter by Genre"
@@ -122,7 +122,7 @@ const SongList: React.FC = () => {
       {error && <Text color="red">{error}</Text>}
 
       {/* Songs List */}
-      <FlexBox flexWrap="wrap" gap="16px" justifyContent="space-between">
+      <FlexBox flexWrap="wrap" justifyContent="space-between">
         {displaySongs.length > 0 ? (
           displaySongs.map((song) => (
             <SongCard key={song._id} alignItems="center">
